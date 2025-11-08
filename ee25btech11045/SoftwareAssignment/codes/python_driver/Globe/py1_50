@@ -1,0 +1,113 @@
+import os
+import numpy as np
+from PIL import Image
+import matplotlib.pyplot as plt
+
+file_path = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/globe.jpg"
+globe = Image.open(file_path)
+
+plt.figure(figsize=(12,6))
+plt.imshow(globe)
+plt.title('Original image')
+
+file_size = os.path.getsize(file_path)
+print(f"Size: {np.round(file_size/1024)} KB")
+print(f"Shape: {np.array(globe).shape}")
+
+globe_array = np.array(globe, dtype=np.uint8)
+
+# converting to grayscale
+globe_gray = np.mean(globe_array, axis=2).astype(np.uint8)
+print(f"Shape of Grayscale globe: {np.shape(globe_gray)}")
+
+plt.figure(figsize=(12,6))
+plt.imshow(globe_gray, cmap='gray')
+plt.title('Grayscale image')
+
+file_path_gray = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/gray_globe.jpg"
+Image.fromarray(globe_gray).save(file_path_gray)
+file_size_globe_gray = os.path.getsize(file_path_gray)
+print(f"Size grayscale globe: {np.round(file_size_globe_gray/1024)}KB")
+
+plt.show()
+
+# SVD
+U, s, Vt = np.linalg.svd(globe_gray, full_matrices=False)
+print(f'U = {np.shape(U)}')
+print(f's = {np.shape(s)}')
+print(f'V = {np.shape(Vt)}')
+
+S = np.diag(s)
+gray_reconstructed_2_g = U @ S @ Vt 
+
+plt.figure(figsize=(18,10))
+
+plt.subplot(2,3,4)
+plt.title('Original Gray scale', fontsize=18)
+plt.imshow(U, cmap='coolwarm')
+
+plt.subplot(2,3,1)
+plt.title('U', fontsize=18)
+plt.imshow(U, cmap='coolwarm')
+
+plt.subplot(2,3,2)
+plt.title('$\\Sigma$', fontsize=18)
+plt.imshow(S, cmap='coolwarm')
+
+plt.subplot(2,3,5)
+plt.title('gray_reconstructed_2_g', fontsize=18)
+plt.imshow(gray_reconstructed_2_g, cmap='gray')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1)
+plt.plot(s, 'ro', markerfacecolor='w')
+plt.title('Singular Values')
+plt.show()
+
+S_k = np.zeros((np.shape(U)[1], np.shape(Vt)[0]))
+no_k = 50
+
+for i in range(no_k):
+    S_k[i, i] = s[i]
+
+gray_reconstructed_2_g = np.clip(U @ S_k @ Vt, 0, 255).astype(np.uint8)
+
+file_path_gray_reconstructed_2_g = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/gray_reconstructed_2_g.jpg"
+Image.fromarray(gray_reconstructed_2_g).save(file_path_gray_reconstructed_2_g)
+file_size_gray_reconstructed_2_g = os.path.getsize(file_path_gray_reconstructed_2_g)
+print(f"Size gray reconstructed: {np.round(file_size_gray_reconstructed_2_g/1024)}KB")
+print(f"Size grayscale globe: {np.round(file_size_globe_gray/1024)}KB")
+
+globe_grayscale = Image.open(file_path_gray)
+plt.figure(figsize=(15,8))
+
+plt.subplot(1,2,1)
+plt.imshow(globe_grayscale, cmap='gray')
+plt.title('Original Grayscale')
+
+plt.subplot(1,2,2)
+plt.imshow(gray_reconstructed_2_g, cmap='gray')
+plt.title('Reconstructed image')
+
+plt.show().path.getsize(file_path_gray_reconstructed_2_g)
+print(f"size gray reconstructed: {np.round(file_size_gray_reconstructed_2_g/1024)}KB")
+print(f"size grayscale einstein: {np.round(file_size_einstein_gray/1024)}KB")
+ 
+
+#display grayscale and reconstructed side by side
+einstein_grayscale = Image.open('gray_einstein.jpg')
+plt.figure(figsize=(15,8))
+
+plt.subplot(1,2,1)
+plt.imshow(einstein_grayscale, cmap='gray')
+plt.title('Original Grayscale')
+
+plt.subplot(1,2,2)
+plt.imshow(gray_reconstructed, cmap='gray')
+plt.title('Reconstructed image')
+
+plt.show()

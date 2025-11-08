@@ -1,0 +1,199 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{parskip}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+\title{Software Assignment}
+\author{EE25BTECH11045 - P.Navya Priya}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{\Large Summary}\\
+
+\textbf{SVD}
+
+Any matrix of size mxn can be written in the form of $\vec{U}$\Sigma\vec{V^{T}}$ which is useful for non-square and non-symmetric matrices.
+
+where\\
+U is an mxm orthogonal matrix(columns are orthonormal left singular vectors)\\
+$\Sigma$ is an m$\times$ n diagonal matrix(with non-negative entries,the singular values)\\
+V is an n$\times$ n orthogonal matrix(columns are orthogonal right singular matrices)
+
+The singular values in $\Sigma$ are generally ordered $\sigma_1>\sigma_2>\sigma_3>...$
+
+Geometrical Interpretation: Think $\vec{A}$ as a mapping- first a  rotation(by $\vec{V^{T}}$), then a stretch(by $\Sigma$), then a rotation(by $\vec{U}$)[rotation$\rightarrow$ stretching$\rightarrow$rotation]\\
+$\bullet$ It has various applications in which one of it is Image Compression
+
+\large\textbf{So, How are we going to get U,$\Sigma$ and $V^{T}$ matrices?}\\
+we know if $\sigma$ is the eigen value of matrix $\vec{A^{T}}\vec{A}$ then the eigen values of $\vec{A}$ is $\sqrt{\sigma}$.
+
+\large{To find $\Sigma$ and $\vec{V}$}\\
+$\bullet$ Find the matrix $\vec{A^{T}}\vec{A}$ which is a symmetric matrix
+\begin{align}
+\vec{A^{T}}\vec{A}\,=\,\vec{V}\Sigma^2\vec{V^{T}}
+\end{align}
+$\bullet$ Find the eigen values of the matrix using
+\begin{align}
+    \vec{A^{T}}\vec{A}\vec{x} \,=\,\sigma \vec{x} 
+\end{align}
+$\bullet$ $\Sigma$ will be the diagonal matrix with diagonal entries,$\sqrt{\sigma}$\\
+$\bullet$ $\vec{V}$ can be determined by finding the eigen vectors of $\vec{A^{T}}\vec{A}$
+
+\large{To find $\vec{U}$}\\
+$\bullet$ Find the matrix $\vec{A}\vec{A^{T}}$.
+\begin{align}
+\vec{A}\vec{A^{T}}\,=\,\vec{U}\Sigma^2\vec{U^{T}}
+\end{align}
+$\bullet$ Find the eigen vectors of $\vec{A}\vec{A^{T}}$ which constitute the matrix $\vec{U}$\\
+
+\textbf{NOTE}: As $\vec{A}\vec{A^{T}}$ and $\vec{A^{T}}\vec{A}$ are symmetric matrices, their eigen vectors are orthonormal.
+\newpage
+\textbf{\large{Additional points}}\\
+$\bullet$ If $\vec{A}$ is symmetric then one can take $\vec{U}$\,=\,$\vec{V}$.\\
+$\bullet$ Because of the null directions, we can choose the extra singular values to be zero. The number of non-zero singular values equals to the rank $\vec{A}$.\\
+$\bullet$ We can think $\vec{A}$ as a linear transformation taking a vector in its row space to the vector in its  column space.
+\begin{align}
+    \vec{AV}\,=\,\vec{U}\Sigma\\
+    \vec{A}= [\,v_1 \; v_2 \; \cdots \; v_r\,]
+    = [\,u_1 \; u_2 \; \cdots \; u_r\,]
+    \begin{bmatrix}
+    \sigma_1 & 0 & \cdots & 0 \\
+    0 & \sigma_2 & \cdots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \cdots & \sigma_r
+    \end{bmatrix}
+\end{align}
+\large\textbf{Image Compression}\\
+As we discussed earlier, it is one of the impotant application of svd.\\
+$\bullet$ Any image particularly grayscale image can be represented as matrix with it's intensity values as the matrix entries.\\
+$\bullet$ The ordering of singular values means that  singular values with bigger $\sigma$ capture more action of $\vec{A}$.
+$\bullet$ We can approximate $\vec{A}$  by keeping onlt the top k singular values.
+\begin{align}
+    \vec{A}_k\,=\,\vec{U}_k\Sigma_k\vec{V^T}_k
+\end{align}
+$\bullet$ This gives rank-k approximation of the image.\\
+$\bullet$ if k $<$ min(m,n), this saves a lot of space while keeping most of the image quality.
+
+
+
+\textbf{Error Approximation}\\
+The relative Frobenius error is
+\begin{align}
+    \frac{||\vec{A-A_k}||_F}{||A||_F}\,=\,\sqrt{1-\frac{\Sigma_{i=1}^{k}\sigma_i^{2}}{\Sigma_{i=1}^{r}\sigma_i^2}}
+\end{align}
+
+\newpage
+einstein
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_1.jpg}
+\caption*{k=5}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_2.jpg}
+\caption*{k=50}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_3.jpg}
+\caption*{k=100}
+\label{fig:graph.png}
+\end{figure}
+\newpage
+Globe
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_1_g.jpg}
+\caption*{k=5}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_2_g.jpg}
+\caption*{k=50}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/gray_reconstructed_3_g.jpg}
+\caption*{k=100}
+\label{fig:graph.png}
+\end{figure}
+
+\newpage
+grayscale
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/grey_reconstructed_1_s.jpg}
+\caption*{k=5}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/grey_reconstructed_1_s.jpg}
+\caption*{k=50}
+\label{fig:graph.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\columnwidth]{figs/grey_reconstructed_1_s.jpg}
+\caption*{k=100}
+\label{fig:graph.png}
+\end{figure}
+\end{document}
