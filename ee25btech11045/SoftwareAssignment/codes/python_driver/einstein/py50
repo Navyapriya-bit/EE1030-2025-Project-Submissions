@@ -5,7 +5,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # Load the image using the full path
-file_path = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/einstein/einstein.jpg"
+file_path = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/einstein/einstein.jpg"
 einstein = Image.open(file_path)
 
 # Display the image
@@ -30,7 +30,7 @@ plt.imshow(einstein_gray, cmap='gray')
 plt.title('Grayscale image')
 
 # Saving the grayscale image
-file_path_gray = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/einstein/gray_einstein.jpg"
+file_path_gray = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/einstein/gray_einstein.jpg"
 Image.fromarray(einstein_gray).save(file_path_gray)
 file_size_einstein_gray = os.path.getsize(file_path_gray)
 print(f"Size grayscale einstein: {np.round(file_size_einstein_gray/1024)} KB")
@@ -86,7 +86,7 @@ for i in range(no_k):
 gray_reconstructed_2 = np.clip(U @ S_k @ Vt, 0, 255).astype(np.uint8)
 
 # Saving reconstructed image
-file_path_gray_reconstructed_2 = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/einstein/gray_reconstructed_2.jpg"
+file_path_gray_reconstructed_2 = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/einstein/gray_reconstructed_2.jpg"
 Image.fromarray(gray_reconstructed_2).save(file_path_gray_reconstructed_2)
 file_size_gray_reconstructed_2 = os.path.getsize(file_path_gray_reconstructed_2)
 print(f"Size gray_reconstructed_2: {np.round(file_size_gray_reconstructed_2/1024)} KB")

@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-file_path = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/globe.jpg"
+file_path = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/Globe/globe.jpg"
 globe = Image.open(file_path)
 
 plt.figure(figsize=(12,6))
@@ -24,7 +24,7 @@ plt.figure(figsize=(12,6))
 plt.imshow(globe_gray, cmap='gray')
 plt.title('Grayscale image')
 
-file_path_gray = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/gray_globe.jpg"
+file_path_gray = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/Globe/gray_globe.jpg"
 Image.fromarray(globe_gray).save(file_path_gray)
 file_size_globe_gray = os.path.getsize(file_path_gray)
 print(f"Size grayscale globe: {np.round(file_size_globe_gray/1024)}KB")
@@ -76,7 +76,7 @@ for i in range(no_k):
 
 gray_reconstructed_3_g = np.clip(U @ S_k @ Vt, 0, 255).astype(np.uint8)
 
-file_path_gray_reconstructed_3_g = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/Globe/gray_reconstructed_3_g.jpg"
+file_path_gray_reconstructed_3_g = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/Globe/gray_reconstructed_3_g.jpg"
 Image.fromarray(gray_reconstructed_3_g).save(file_path_gray_reconstructed_3_g)
 file_size_gray_reconstructed_3_g = os.path.getsize(file_path_gray_reconstructed_3_g)
 print(f"Size gray reconstructed: {np.round(file_size_gray_reconstructed_3_g/1024)}KB")

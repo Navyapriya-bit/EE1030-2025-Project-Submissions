@@ -5,7 +5,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 
-file_path = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/greyscale/greyscale.jpg"
+file_path = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/greyscale/greyscale.jpg"
 grayscale = Image.open(file_path).convert('L')  # ensures grayscale is 2D
 
 plt.figure(figsize=(12,6))
@@ -24,7 +24,7 @@ plt.figure(figsize=(12,6))
 plt.imshow(grayscale_gray, cmap='gray')
 plt.title('Grayscale image')
 
-file_path_gray = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/greyscale/gray_grayscale.jpg"
+file_path_gray = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/greyscale/gray_grayscale.jpg"
 Image.fromarray(grayscale_gray).save(file_path_gray)
 file_size_grayscale_gray = os.path.getsize(file_path_gray)
 print(f"Size grayscale grayscale: {np.round(file_size_grayscale_gray/1024)}KB")
@@ -60,7 +60,7 @@ for i in range(no_k):
 
 grey_reconstructed_2_s = np.clip(U @ S_k @ Vt, 0, 255).astype(np.uint8)
 
-file_path_grey_reconstructed_2_s = "/home/navya/Downloads/SoftwareAssignment/codes/python_driver/greyscale/grey_reconstructed_2_s.jpg"
+file_path_grey_reconstructed_2_s = "/home/navya/EE1030-2025-Project-Submissions/ee25btech11045/SoftwareAssignment/codes/python_driver/greyscale/grey_reconstructed_2_s.jpg"
 Image.fromarray(grey_reconstructed_2_s).save(file_path_grey_reconstructed_2_s)
 file_size_grey_reconstructed_2_s = os.path.getsize(file_path_grey_reconstructed_2_s)
 print(f"size gray reconstructed: {np.round(file_size_grey_reconstructed_2_s/1024)}KB")
